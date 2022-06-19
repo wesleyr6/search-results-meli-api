@@ -1,6 +1,29 @@
-# MELI Search Results API Bridge built with NodeJS and Express
+<h1 align="center">MELI Search Results API Bridge built with NodeJS and Express</h1>
+
+<p align="center">
+  <a href="https://dashboard.heroku.com/pipelines/f49b1115-11b2-4dae-8494-5fc61d937d9c/tests" target="_blank">
+    <img src="https://meli-react-badge.herokuapp.com/last.svg" />
+  </a>
+  <a href="https://meli-express-api-dev.herokuapp.com/" target="_blank">
+    <img src="https://img.shields.io/badge/-development-red" />
+  </a>
+  <a href="https://meli-express-api.herokuapp.com/" target="_blank">
+    <img src="https://img.shields.io/badge/-production-purple" />
+  </a>
+</p>
 
 This project was built to practice nodejs with express.
+
+## Requirements
+
+- node 16.X
+- npm 7
+- vscode (include extensions)
+
+### VSCode Extensions
+
+- ESLint
+- Prettier
 
 ## Packages used
 
@@ -11,6 +34,7 @@ This project was built to practice nodejs with express.
 - eslint (code pattern)
 - express (NodeJS Framework)
 - nodemon (to watch our changes)
+- dotenv (to use env vars)
 
 ## Frontend
 
