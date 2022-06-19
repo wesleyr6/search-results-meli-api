@@ -8,37 +8,46 @@ export async function getItemDetail(req: Request, res: Response) {
 
   if (!id) res.status(400).send({ error: "You need to send the id" });
 
-  const fetchProduct = axios.get(`${MELI_API}/items/${id}`);
-  const fetchProductDescription = axios.get(
-    `${MELI_API}/items/${id}/description`
-  );
+  const [descriptionData]: any = await Promise.allSettled([
+    axios.get(`${MELI_API}/items/${id}/description`),
+  ]);
+
+  const description =
+    descriptionData?.value && descriptionData?.value?.data
+      ? descriptionData.value.data.plain_text
+      : "";
 
   try {
-    const [productData, descriptionData] = await Promise.all([
-      fetchProduct,
-      fetchProductDescription,
-    ]);
+    const { data: productData } = await axios.get(`${MELI_API}/items/${id}`);
 
-    const { plain_text } = descriptionData.data;
     const {
       id: productId,
       title,
+      category_id,
       price,
       currency_id,
       sold_quantity,
       shipping,
       pictures,
       condition,
-    } = productData.data;
+    } = productData;
+
+    const { data: categoryData }: any = await axios.get(
+      `${MELI_API}/categories/${category_id}`
+    );
 
     return res.status(200).send({
       author: {
-        name: "",
-        lastname: "",
+        name: "Wesley",
+        lastname: "Amaro",
       },
       item: {
         id: productId,
         title,
+        category: {
+          id: categoryData.id ?? null,
+          name: categoryData.name ?? "",
+        },
         price: {
           currency: currency_id,
           amount: price,
@@ -51,7 +60,7 @@ export async function getItemDetail(req: Request, res: Response) {
         condition: condition ?? "",
         free_shipping: !!shipping?.free_shipping,
         sold_quantity: sold_quantity ?? 0,
-        description: plain_text ?? "",
+        description: description,
       },
     });
   } catch (err) {

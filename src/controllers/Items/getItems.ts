@@ -2,6 +2,11 @@ import { Request, Response } from "express";
 import axios from "axios";
 import { errorHandler } from "../../utils/errorHandler";
 
+function getCategory(arr: any[]) {
+  const cat = arr.find((item) => item.id === "category");
+  return cat ? cat.values[0].name : "";
+}
+
 export async function getItems(req: Request, res: Response) {
   const { MELI_API } = process.env;
   const { q } = req.query;
@@ -10,7 +15,7 @@ export async function getItems(req: Request, res: Response) {
 
   try {
     const { data }: any = await axios.get(
-      `${MELI_API}/sites/MLA/search?q=${q}`
+      `${MELI_API}/sites/MLA/search?q=${q}&limit=4`
     );
 
     let items: any = [];
@@ -25,11 +30,13 @@ export async function getItems(req: Request, res: Response) {
           condition,
           thumbnail,
           shipping,
+          address,
         } = item;
 
         return {
           id: productId,
           title,
+          location: address.state_name ?? "",
           price: {
             currency: currency_id,
             amount: price,
@@ -45,6 +52,13 @@ export async function getItems(req: Request, res: Response) {
     }
 
     return res.status(200).send({
+      author: {
+        name: "Wesley",
+        lastname: "Amaro",
+      },
+      category: getCategory(
+        data.filters.length ? data.filters : data.available_filters
+      ),
       items,
     });
   } catch (err) {
