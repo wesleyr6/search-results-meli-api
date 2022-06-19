@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://dashboard.heroku.com/pipelines/f49b1115-11b2-4dae-8494-5fc61d937d9c/tests" target="_blank">
-    <img src="https://meli-react-badge.herokuapp.com/last.svg" />
+    <img src="https://meli-express-api-badge.herokuapp.com/last.svg" />
   </a>
   <a href="https://meli-express-api-dev.herokuapp.com/" target="_blank">
     <img src="https://img.shields.io/badge/-development-red" />
