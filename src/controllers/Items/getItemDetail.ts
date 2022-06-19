@@ -14,7 +14,7 @@ export async function getItemDetail(req: Request, res: Response) {
 
   const description =
     descriptionData?.value && descriptionData?.value?.data
-      ? descriptionData.value.data.plain_text
+      ? descriptionData.value.data.plain_text.replace(/__\w+/g, " ")
       : "";
 
   try {
